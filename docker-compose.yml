@@ -43,23 +43,7 @@ services:
       - backend
     restart: unless-stopped
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins
-    user: root
-    ports:
-      - "8080:8080"     # <-- Add this line to expose Jenkins UI
-      - "50000:50000"  # for Jenkins agents
-    environment:
-      JENKINS_OPTS: --prefix=/jenkins
-      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
-
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - ./jenkins/init.groovy.d:/var/jenkins_home/init.groovy.d:ro
-    networks:
-      - backend
-
+  
   nginx:
     image: nginx:latest
     container_name: nginx_proxy
@@ -70,7 +54,6 @@ services:
     depends_on:
       - sonarqube
       - nexus
-      - jenkins
     networks:
       - backend
 
@@ -78,7 +61,6 @@ volumes:
   sonarqube_data:
   sonarqube_extensions:
   postgresql:
-  jenkins_home:
   nexus-data:
 
 networks:
