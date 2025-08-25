@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nexus:
     image: sonatype/nexus3
-    container_name: sai.nexus.local
+    container_name: nexus
     restart: always
     ports:
       - "8081:8081" # Nexus web UI
@@ -21,3 +21,4 @@ networks:
   ci-cd-network:
 
     external: true
+
